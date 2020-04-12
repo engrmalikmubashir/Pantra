@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b53d1945d82e4788a61e540348ad2d34" Name="Diagram1">
+        <EntityTypeShape EntityType="PantraModel.Building" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PantraModel.City" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PantraModel.Customer" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PantraModel.Floor" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PantraModel.MyCounty" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PantraModel.MyShop" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="PantraModel.FK_Building_City" ManuallyRouted="false" />
+        <AssociationConnector Association="PantraModel.FK_Building_MyCounty" ManuallyRouted="false" />
+        <AssociationConnector Association="PantraModel.FK_Floor_Building" ManuallyRouted="false" />
+        <AssociationConnector Association="PantraModel.FK_City_MyCounty" ManuallyRouted="false" />
+        <AssociationConnector Association="PantraModel.FK_Customer_City" ManuallyRouted="false" />
+        <AssociationConnector Association="PantraModel.FK_Customer_MyCounty" ManuallyRouted="false" />
+        <AssociationConnector Association="PantraModel.FK_MyShop_Floor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

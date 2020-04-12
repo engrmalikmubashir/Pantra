@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PantraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="int" />
+          <Property Name="Country" Type="int" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="int" />
+          <Property Name="Country" Type="int" />
+        </EntityType>
+        <EntityType Name="Floor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Building" Type="int" />
+        </EntityType>
+        <EntityType Name="MyCounty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Continent" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MyShop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Floor" Type="int" />
+        </EntityType>
+        <Association Name="FK_Building_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Building_MyCounty">
+          <End Role="MyCounty" Type="Self.MyCounty" Multiplicity="0..1" />
+          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyCounty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_MyCounty">
+          <End Role="MyCounty" Type="Self.MyCounty" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyCounty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_MyCounty">
+          <End Role="MyCounty" Type="Self.MyCounty" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyCounty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Floor_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="0..1" />
+          <End Role="Floor" Type="Self.Floor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Floor">
+              <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MyShop_Floor">
+          <End Role="Floor" Type="Self.Floor" Multiplicity="0..1" />
+          <End Role="MyShop" Type="Self.MyShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Floor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MyShop">
+              <PropertyRef Name="Floor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PantraModelStoreContainer">
+          <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Floor" EntityType="Self.Floor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyCounty" EntityType="Self.MyCounty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyShop" EntityType="Self.MyShop" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Building_City" Association="Self.FK_Building_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Building" EntitySet="Building" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Building_MyCounty" Association="Self.FK_Building_MyCounty">
+            <End Role="MyCounty" EntitySet="MyCounty" />
+            <End Role="Building" EntitySet="Building" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_MyCounty" Association="Self.FK_City_MyCounty">
+            <End Role="MyCounty" EntitySet="MyCounty" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_City" Association="Self.FK_Customer_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_MyCounty" Association="Self.FK_Customer_MyCounty">
+            <End Role="MyCounty" EntitySet="MyCounty" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Floor_Building" Association="Self.FK_Floor_Building">
+            <End Role="Building" EntitySet="Building" />
+            <End Role="Floor" EntitySet="Floor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MyShop_Floor" Association="Self.FK_MyShop_Floor">
+            <End Role="Floor" EntitySet="Floor" />
+            <End Role="MyShop" EntitySet="MyShop" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PantraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Country" Type="Int32" />
+          <NavigationProperty Name="City1" Relationship="Self.FK_Building_City" FromRole="Building" ToRole="City" />
+          <NavigationProperty Name="MyCounty" Relationship="Self.FK_Building_MyCounty" FromRole="Building" ToRole="MyCounty" />
+          <NavigationProperty Name="Floors" Relationship="Self.FK_Floor_Building" FromRole="Building" ToRole="Floor" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <NavigationProperty Name="Buildings" Relationship="Self.FK_Building_City" FromRole="City" ToRole="Building" />
+          <NavigationProperty Name="MyCounty" Relationship="Self.FK_City_MyCounty" FromRole="City" ToRole="MyCounty" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_City" FromRole="City" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Country" Type="Int32" />
+          <NavigationProperty Name="City1" Relationship="Self.FK_Customer_City" FromRole="Customer" ToRole="City" />
+          <NavigationProperty Name="MyCounty" Relationship="Self.FK_Customer_MyCounty" FromRole="Customer" ToRole="MyCounty" />
+        </EntityType>
+        <EntityType Name="Floor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="Int32" />
+          <NavigationProperty Name="Building1" Relationship="Self.FK_Floor_Building" FromRole="Floor" ToRole="Building" />
+          <NavigationProperty Name="MyShops" Relationship="Self.FK_MyShop_Floor" FromRole="Floor" ToRole="MyShop" />
+        </EntityType>
+        <EntityType Name="MyCounty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Continent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Buildings" Relationship="Self.FK_Building_MyCounty" FromRole="MyCounty" ToRole="Building" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_City_MyCounty" FromRole="MyCounty" ToRole="City" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_MyCounty" FromRole="MyCounty" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="MyShop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Floor" Type="Int32" />
+          <NavigationProperty Name="Floor1" Relationship="Self.FK_MyShop_Floor" FromRole="MyShop" ToRole="Floor" />
+        </EntityType>
+        <Association Name="FK_Building_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Building_MyCounty">
+          <End Role="MyCounty" Type="Self.MyCounty" Multiplicity="0..1" />
+          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyCounty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Floor_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="0..1" />
+          <End Role="Floor" Type="Self.Floor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Floor">
+              <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_MyCounty">
+          <End Role="MyCounty" Type="Self.MyCounty" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyCounty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_MyCounty">
+          <End Role="MyCounty" Type="Self.MyCounty" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyCounty">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MyShop_Floor">
+          <End Role="Floor" Type="Self.Floor" Multiplicity="0..1" />
+          <End Role="MyShop" Type="Self.MyShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Floor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MyShop">
+              <PropertyRef Name="Floor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PantraDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buildings" EntityType="Self.Building" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Floors" EntityType="Self.Floor" />
+          <EntitySet Name="MyCounties" EntityType="Self.MyCounty" />
+          <EntitySet Name="MyShops" EntityType="Self.MyShop" />
+          <AssociationSet Name="FK_Building_City" Association="Self.FK_Building_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Building" EntitySet="Buildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Building_MyCounty" Association="Self.FK_Building_MyCounty">
+            <End Role="MyCounty" EntitySet="MyCounties" />
+            <End Role="Building" EntitySet="Buildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Floor_Building" Association="Self.FK_Floor_Building">
+            <End Role="Building" EntitySet="Buildings" />
+            <End Role="Floor" EntitySet="Floors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_MyCounty" Association="Self.FK_City_MyCounty">
+            <End Role="MyCounty" EntitySet="MyCounties" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_City" Association="Self.FK_Customer_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_MyCounty" Association="Self.FK_Customer_MyCounty">
+            <End Role="MyCounty" EntitySet="MyCounties" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MyShop_Floor" Association="Self.FK_MyShop_Floor">
+            <End Role="Floor" EntitySet="Floors" />
+            <End Role="MyShop" EntitySet="MyShops" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PantraModelStoreContainer" CdmEntityContainer="PantraDbContext">
+          <EntitySetMapping Name="Buildings">
+            <EntityTypeMapping TypeName="PantraModel.Building">
+              <MappingFragment StoreEntitySet="Building">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="PantraModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PantraModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Floors">
+            <EntityTypeMapping TypeName="PantraModel.Floor">
+              <MappingFragment StoreEntitySet="Floor">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyCounties">
+            <EntityTypeMapping TypeName="PantraModel.MyCounty">
+              <MappingFragment StoreEntitySet="MyCounty">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Continent" ColumnName="Continent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyShops">
+            <EntityTypeMapping TypeName="PantraModel.MyShop">
+              <MappingFragment StoreEntitySet="MyShop">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

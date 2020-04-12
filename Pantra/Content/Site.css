@@ -1,0 +1,58 @@
+﻿/* Body */
+body {
+    overflow-x: hidden;
+}
+
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background: #FF3B77;
+    color: #fff;
+}
+
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+
+
+#social a i {
+    color: #333;
+}
+
+#social a i.fa-facebook-f:hover {
+    color: #065eb1;
+}
+
+#social a i.fa-twitter:hover {
+    color: #1240d6;
+}
+
+#social a i.fa-instagram:hover {
+    color: #e9910e;
+}
+
+#social a i.fa-linkedin-in:hover {
+    color: #8609a5;
+}
+
+#social a i.fa-facebook-messenger:hover {
+    color: #052794;
+}
+
+#social a i.fa-whatsapp:hover {
+    color: #28a745;
+}
